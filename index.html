@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+  <meta charset="UTF-8">
+  <title>Technical Documentation</title>
+  
+  
+  
+      <link rel="stylesheet" href="css/style.css">
+
+  
+</head>
+
+<body>
+
+  <div id="grid-container">
+<nav id="navbar">
+    <header>CSS Flexbox</header>
+    <a href="#When_Why_&_How?" class="nav-link">When Why & How?</a>
+    <a href="#Positioning_Items" class="nav-link">Positioning Items</a>
+    <a href="#Handling_Box_Overflow" class="nav-link">Handling Box Overflow</a>
+    <a href="#Item_Properties" class="nav-link">Item Properties</a>
+    <a href="#Responsive_Use" class="nav-link">Responsive Use</a>
+  </nav>
+<main id="main-doc">
+  <section class="main-section" id="When_Why_&_How?">
+    <header>When Why & How?</header>
+    <p>While CSS Grid is more useful for two-dimensional layouts, CSS Flexbox provides straightforward code for flexible one-dimensional layouts. For example, this page is structured with a vertical navbar down the left of the page as one flexbox container, one vertical main flexbox container, and one horizontal flexbox footer across the bottom. CSS Grid is used to help position these three one-dimensional flexboxes on a two-dimensional page.</p>
+    <ul>
+      <li><code>display: flex;</code> turns a container into a flexbox</li>
+      <li><code>flex-direction</code> defines whether the container will run as a horizontal <code>row</code> or a vertical <code>column</code></li>
+    </ul>
+    <p><strong>Example:</strong> The green navbar flexbox and the gray main flexbox are both set to column, while the dark gray footer is set to a row flex-direction. Furthermore, each main section within the gray main container is a column flexbox itself.</p>
+  </section>
+  <section class="main-section" id="Positioning_Items">
+    <header>Positioning Items</header>
+    <p>When a container becomes a flexbox, its direct children (and <em>only</em> its direct children) become flexible items that can be controlled by flex properties defined in the parent CSS. In order for the header, paragraph, and list elements to become flex items, each main section is also given the <code>display: flex;</code> property.</p>
+    <p><code>justify_content</code> and <code>align_items</code> are the two main properties that are applied to the flexbox to position the items within it.</p>
+    <ul>
+      <li><code>justify_content</code> aligns items along the main axis (horizontal for rows, vertical for columns) and takes the following values</li> 
+        <ul>
+         <li><code>center</code> which aligns items at the center of the container along main axis</li>
+          <li><code>flex-start</code> aligns items at the start of the main axis</li>
+          <li><code>flex-end</code> aligns at the end of main axis</li>
+          <li><code>space-around</code> aligns items along main axis with spacing before, between, and after</li>
+          <li><code>space-between</code> aligns items along main axis with spacing between</li>
+        </ul>
+      <li><code>align_items</code> is similar, but aligns items along the <em>cross</em> axis (vertical for rows, horizontal for columns) and takes the following values</li>
+      <ul>
+        <li><code>center</code></li>
+        <li><code>flex-start</code></li>
+        <li><code>flex-end</code></li>
+        <li><code>stretch</code> items stretch to fill container (default)</li>
+        <li><code>baseline</code> aligns items to text baseline, that the letters "sit" on</li>
+      </ul>
+    </ul>
+    <p><strong>Example:</strong> The green navbar, a flexbox with a column flex-direction has a <code>justify-content</code> value of <code>space-around</code> to provide the spacing down along the vertical main axis. The dark gray footer has a value of <code>baseline</code> for its <code>align-items</code> property in order to have all the items sitting on the same line, regardless of font-size.</p>
+  </section>
+  <section class="main-section" id="Handling_Box_Overflow">
+    <header>Handling Box Overflow</header>
+    <p>By default, Flexbox only accommodates one row or column along the main axis. By changing the value of <code>flex-wrap</code> from the default of <code>no-wrap</code> to <code>wrap</code> we can push items that don't fit well down to a second row from left-to-right or over to a second column from top-to-bottom.</p.>
+ <p><code>wrap-reverse</code> will do the same, except order items from right-to-left for rows and bottom-to-top for columns.</p>
+  </section>
+  <section class="main-section" id="Item_Properties">
+    <header>Item Properties</header>
+    <p>Properties can applied to individual items that are children of flexboxes.</p>
+    <ul>
+      <li><code>flex-shrink</code> will shrink the item if the width the flex container is smaller than the combined widths of the items within it. A numerical value is given to determine for how much an item should be shrunk in comparison to other items sharing its container</li>
+      <li><code>flex-grow</code> operates similarly, except the objects will grow as space within the flex container allows</li>
+      <li><code>flex-basis</code> sets the starting size using standard size properties before the above adjustments are made.</li>
+      <li><code>flex</code> combines all of the above three into a shorthand <code>flex: 1 0 5em;</code> with the first value corresponding to grow, the second to shrink, and the third to basis.</li>
+      <li><code>order</code> can be used on items with a numerical value to change the order they appear in the flex container</li>
+      <li><code>align-self</code> can be directly applied to items to override the alignment set in its parent element and takes the same values as the <code>align-items</code> property</li>
+    </ul>
+    <p><strong>Example:</strong> The <code>p</code> element in the footer has the property <code>flex: 3 1 150px;</code> while the <code>a</code> elements all have <code>flex: 1 1 150px;</code>. This means that while they all have a starting width of 150px, the element with the text "Resources:" will grow 3 times as much as the links, and they will all shrink at the same rate. So, when the footer is 600px wide, the space for all four elements is divided equally. As the footer grows, 3 times as much of the extra space is allocated to the <code>p</code> element as to each <code>a</code> element.</p>
+  </section>
+  <section class="main-section" id="Responsive_Use">
+    <header>Responsive Use</header>
+    <p>Flexbox can be even more useful when used along with media queries for styling responsive pages.</p><p><strong>Example:</strong> This page has a media query set for max-width of 650px. Under this query, in addition to the grid structure changing to one column, the footer flex direction is changed from <code>row</code> to <code>column</code>, and the flex values of its items are changed to <code>flex: 1 1 0;</code>. This allows for most of the spacing to be adjusted simply by applying <code>justify-content: space-around;</code> and <code>align-items: center:</code> to the footer flexbox.</p>
+  </section>
+</main>
+<footer>
+    <p>References:</p>
+    <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout">MDN</a>
+    <a href="https://www.w3schools.com/css/css3_flexbox.asp">W3 Schools</a>
+    <a href="https://learn.freecodecamp.org/responsive-web-design/css-flexbox">FCC</a>
+</footer>
+</div>
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+  
+  
+
+    <script  src="js/index.js"></script>
+
+
+
+
+</body>
+
+</html>
